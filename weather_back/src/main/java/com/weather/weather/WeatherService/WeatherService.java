@@ -13,17 +13,16 @@ public class WeatherService {
 
     private static final String WEB_SERVICE = "http://api.weatherapi.com/v1";
     private static final String API = "/forecast.json";
-    private static final String API_KEY = "?key=3d6accf6c96c4a10bc4174734242610";
-    private static final String CITY = "&q=Campina+Grande";
+    private static final String API_KEY = "?key=3d6accf6c96c4a10bc4174734242610&q=";
     private URL url;
 
     public WeatherService(){
     }
 
 
-    public JSONObject getWeather(){
+    public JSONObject getWeather(String city){
         try {
-            String finalUrl = WEB_SERVICE+API+API_KEY+CITY;
+            String finalUrl = WEB_SERVICE+API+API_KEY+city;
             this.url = new URI(finalUrl).toURL();
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             BufferedReader dataResponse = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -41,6 +40,11 @@ public class WeatherService {
         System.out.println(e.getMessage());
     }
     return null;
+    }
+
+
+    public void convertCity(String city) {
+        city = city.replaceAll(" ", "+");
     }
 
 }
