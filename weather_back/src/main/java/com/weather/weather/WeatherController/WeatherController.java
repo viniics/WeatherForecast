@@ -15,7 +15,7 @@ import com.weather.weather.WeatherService.WeatherService;
 
 @RestController
 @RequestMapping("/weather")
-@CrossOrigin(origins = "*") // Permite requisições de qualquer origem
+@CrossOrigin(origins = "*") // Permite requisições de qualquer origem p usar no arquivo HTML
 public class WeatherController {
     @Autowired
     private WeatherService weatherService;
