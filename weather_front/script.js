@@ -17,9 +17,9 @@ document.getElementById("fetchWeather").addEventListener("click", function () {
         .then(data => {
             const weatherResult = document.getElementById("weatherResult");
             weatherResult.innerHTML = `
-                <p>Cidade: ${data.name}</p>
+                <p>Cidade: ${data.city}</p>
                 <p>País: ${data.country}</p>
-                <p>Temperatura: ${data.temperatura_atual} °C</p>
+                <p>Temperatura: ${data.temp} °C</p>
             `;
         })
         .catch(error => {

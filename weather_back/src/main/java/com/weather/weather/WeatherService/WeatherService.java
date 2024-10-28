@@ -8,6 +8,8 @@ import java.net.URL;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import com.weather.weather.Entity.CityWeather;
+
 @Service
 public class WeatherService {
 
@@ -20,7 +22,7 @@ public class WeatherService {
     }
 
 
-    public JSONObject getWeather(String city){
+    public CityWeather getWeather(String city){
         try {
             String finalUrl = WEB_SERVICE+API+API_KEY+city;
             this.url = new URI(finalUrl).toURL();
@@ -28,13 +30,16 @@ public class WeatherService {
             BufferedReader dataResponse = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             JSONObject response = new JSONObject(dataResponse.readLine());
             dataResponse.close();
+
             JSONObject location = response.getJSONObject("location");
             JSONObject current = response.getJSONObject("current");
-            JSONObject result = new JSONObject();
-            result.put("country", location.getString("country"));
-            result.put("name", location.getString("name"));
-            result.put("temperatura_atual", current.getDouble("temp_c"));
-            return result;
+            
+            String name = location.getString("name");
+            String country = location.getString("country");
+            Double temp = current.getDouble("temp_c");
+            CityWeather cityWeather = new CityWeather(name,country,temp);
+            return cityWeather;
+
         }catch(Exception e)
     {
         System.out.println(e.getMessage());
