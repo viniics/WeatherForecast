@@ -41,4 +41,12 @@ public class WeatherController {
         CityErrorMessage cityErrorMessage = new CityErrorMessage(statusCode, e.getMessage(), timestamp);
         return new ResponseEntity<>(cityErrorMessage, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler
+    public ResponseEntity<CityErrorMessage> handleException(Exception e){
+        int statusCode = HttpStatus.BAD_REQUEST.value();
+        LocalDateTime timestamp = LocalDateTime.now();
+        CityErrorMessage cityErrorMessage = new CityErrorMessage(statusCode, e.getMessage(), timestamp);
+        return new ResponseEntity<>(cityErrorMessage, HttpStatus.BAD_REQUEST);
+    }
 }
